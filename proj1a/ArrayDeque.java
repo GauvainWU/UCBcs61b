@@ -22,13 +22,13 @@ public class ArrayDeque<T> {
      * Copy data and useful attributes.
      * @param other the list to be copied.
      */
-    public ArrayDeque(ArrayDeque<T> other) {
-        int otherLength = other.data.length;
-        data = (T[]) new Object[otherLength];
-        size = other.size;
-        nextFirst = other.nextFirst;
-        System.arraycopy(other.data, 0, data, 0, otherLength);
-    }
+//    public ArrayDeque(ArrayDeque<T> other) {
+//        int otherLength = other.data.length;
+//        data = (T[]) new Object[otherLength];
+//        size = other.size;
+//        nextFirst = other.nextFirst;
+//        System.arraycopy(other.data, 0, data, 0, otherLength);
+//    }
 
     /**
      *   Function that transfers list index (starting from nextFirst + 1) to the index in the data array.
