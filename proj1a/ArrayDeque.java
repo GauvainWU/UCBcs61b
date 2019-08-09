@@ -61,6 +61,7 @@ public class ArrayDeque<T> {
                     newArray, newArray.length - zeroToEndLength, zeroToEndLength);
             /**Copy the elements starting from 0 (array index) to end (list index)*/
             System.arraycopy(data, 0, newArray, 0, convertToArrayIndex(size, data.length));
+            nextFirst += (newSize - size);
             /* Case of size decreasing. (last element does not circulate back to the front)*/
         } else {
             System.arraycopy(data, convertToArrayIndex(0, data.length), newArray, 0, size);
@@ -82,7 +83,7 @@ public class ArrayDeque<T> {
      *     size.
       */
     public void addFirst(T x) {
-        if (isFull()) {
+        if(isFull()) {
             upSize();
         }
         data[convertToArrayIndex(-1, data.length)] = x;
@@ -91,7 +92,7 @@ public class ArrayDeque<T> {
     }
 
     public void addLast(T x) {
-        if (isFull()) {
+        if(isFull()) {
             upSize();
         }
         data[convertToArrayIndex(size, data.length)] = x;
@@ -99,6 +100,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
+        if(isEmpty()) {
+            return null;
+        }
         nextFirst++;
         size--;
         T returnItem = data[convertToArrayIndex(-1, data.length)];
@@ -110,6 +114,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if(isEmpty()) {
+            return null;
+        }
         size--;
         T returnItem = data[convertToArrayIndex(size, data.length)];
         data[convertToArrayIndex(size, data.length)] = null;

@@ -1,24 +1,26 @@
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 public class ArrayDequeTest {
 
-    public static void addRemoveTest() {
+    @Test
+    public void addRemoveTest() {
         ArrayDeque<Integer> test = new ArrayDeque<Integer>();
-        for (int i = 0; i < 10; i++) {
-            test.addFirst(i);
+        for (int i = 0; i < 7; i++) {
             test.addLast(i);
         }
-//        ArrayDeque<Integer> test2 = new ArrayDeque<Integer>(test);
-//        test2.printDeque();
-//        System.out.println(test.size());
-        for (int i = 0; i < 10; ++i){
-            test.removeFirst();
-            test.removeLast();
-        }
-        test.printDeque();
-        System.out.println(test.size());
+        assertEquals((int) 0, (int) test.get(0));
     }
 
-    public static void main(String[] args) {
-        addRemoveTest();
+    @Test
+    public void test2() {
+        ArrayDeque<Integer> test = new ArrayDeque<Integer>();
+        for (int i = 0; i < 9; i++) {
+            test.addLast(i);
+        }
+        assertNotEquals(null, test.removeLast());
+        assertNotEquals(null, test.removeFirst());
     }
+
 
 }
