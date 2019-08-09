@@ -7,7 +7,6 @@ public class ArrayDeque<T> {
     private T[] data;
     private int size;
     private int nextFirst;
-//    private int nextLast;
 
     /**
      * Constructor of an empty list.
@@ -17,7 +16,6 @@ public class ArrayDeque<T> {
         data = (T[]) new Object[8];
         size = 0;
         nextFirst = 2;
-//        nextLast = 1;
     }
 
     /**
@@ -29,7 +27,6 @@ public class ArrayDeque<T> {
         data = (T[]) new Object[otherLength];
         size = other.size;
         nextFirst = other.nextFirst;
-//        nextLast = other.nextLast;
         System.arraycopy(other.data, 0, data, 0, otherLength);
     }
 
@@ -94,7 +91,6 @@ public class ArrayDeque<T> {
             upSize();
         }
         data[convertToArrayIndex(size, data.length)] = x;
-//        nextLast++;
         size++;
     }
 
@@ -110,7 +106,6 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
-//        nextLast--;
         size--;
         T returnItem = data[convertToArrayIndex(size, data.length)];
         data[convertToArrayIndex(size, data.length)] = null;
