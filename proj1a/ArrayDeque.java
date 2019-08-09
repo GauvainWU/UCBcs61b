@@ -43,11 +43,15 @@ public class ArrayDeque<T> {
         return size == data.length;
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     /**
      * Modify the array to be a given new length.
      * @param newSize the new size(length) of the array
      */
-    private void resize(int newSize){
+    private void resize(int newSize) {
         T[] newArray = (T[]) new Object[newSize];
         /* Situation of size increasing.(When the array is full and we add element)*/
         if (convertToArrayIndex(0, data.length) + size > data.length) {
@@ -99,7 +103,7 @@ public class ArrayDeque<T> {
         size--;
         T returnItem = data[convertToArrayIndex(-1, data.length)];
         data[convertToArrayIndex(-1, data.length)] = null;
-        if (size == data.length / 2){
+        if (size == data.length / 2) {
             downSize();
         }
         return returnItem;
@@ -109,7 +113,7 @@ public class ArrayDeque<T> {
         size--;
         T returnItem = data[convertToArrayIndex(size, data.length)];
         data[convertToArrayIndex(size, data.length)] = null;
-        if (size == data.length / 2 && size >= 8){
+        if (size == data.length / 2 && size >= 8) {
             downSize();
         }
         return returnItem;
@@ -123,7 +127,7 @@ public class ArrayDeque<T> {
         return size;
     }
 
-    public void printDeque(){
+    public void printDeque() {
         for (int i = 0; i < size; ++i) {
             System.out.print(data[convertToArrayIndex(i, data.length)]);
             System.out.print(' ');
