@@ -54,7 +54,7 @@ public class ArrayDeque<T> {
     private void resize(int newSize) {
         T[] newArray = (T[]) new Object[newSize];
         /* Situation of size increasing.(When the array is full and we add element)*/
-        if (convertToArrayIndex(0, data.length) + size >= data.length) {
+        if (convertToArrayIndex(0, data.length) + size > data.length) {
             /** Copy the elements starting from 0 (list index) to the end of the array*/
             int zeroToEndLength = data.length - convertToArrayIndex(0, data.length);
             System.arraycopy(data, convertToArrayIndex(0, data.length),

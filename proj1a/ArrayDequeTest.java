@@ -63,4 +63,32 @@ public class ArrayDequeTest {
             assertNotEquals(null, test.removeFirst());
         }
     }
+
+    @Test
+    public void test6() {
+        ArrayDeque<Integer> test = new ArrayDeque<>();
+        test.addLast(0);
+        test.addFirst(1);
+        test.addFirst(2);
+        test.removeFirst();
+        test.addLast(4);
+        test.addFirst(5);
+        test.addLast(6);
+        test.get(4);
+        test.removeFirst();
+        test.addFirst(9);
+        test.addFirst(10);
+        test.removeLast();
+        test.addFirst(12);
+        test.addLast(13);
+        test.addFirst(14);
+        test.addFirst(15);
+        test.removeFirst();
+        test.get(6);
+        test.get(0);
+        test.addFirst(19);
+        test.addFirst(20);
+        test.addFirst(21);
+        assertNotEquals(null, test.get(8));
+    }
 }
