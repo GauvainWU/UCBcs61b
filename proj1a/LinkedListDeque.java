@@ -43,6 +43,7 @@ public class LinkedListDeque<T> {
      */
     public void addFirst(T x) {
         sentinel.next = new LinkNode(x, sentinel.next, sentinel);
+        sentinel.next.next.prev = sentinel.next;
         if(isEmpty()) {
             last = sentinel.next;
         }

@@ -6,9 +6,9 @@ public class ArrayDequeTest {
             test.addFirst(i);
             test.addLast(i);
         }
-        ArrayDeque<Integer> test2 = new ArrayDeque<Integer>(test);
-        test2.printDeque();
-        System.out.println(test.size());
+//        ArrayDeque<Integer> test2 = new ArrayDeque<Integer>(test);
+//        test2.printDeque();
+//        System.out.println(test.size());
         for (int i = 0; i < 10; ++i){
             test.removeFirst();
             test.removeLast();
