@@ -91,4 +91,37 @@ public class ArrayDequeTest {
         test.addFirst(21);
         assertNotEquals(null, test.get(8));
     }
+
+    @Test
+    public void test7() {
+        ArrayDeque<Integer> test = new ArrayDeque<>();
+        test.addLast(0);
+        test.addLast(1);
+        test.addFirst(2);
+        test.addLast(3);
+        test.removeFirst();
+        test.addLast(5);
+        test.removeFirst();
+        test.removeFirst();
+        test.get(0);
+        test.get(0);
+        test.removeFirst();
+        test.addLast(11);
+        test.removeFirst();
+        test.addFirst(13);
+        test.addFirst(14);
+        test.addLast(15);
+        test.addFirst(16);
+        test.removeFirst();
+        test.get(2);
+        test.removeFirst();
+        test.addLast(20);
+        test.addLast(21);
+        test.addFirst(22);
+        assertNotEquals(null, test.get(2));
+        for (int i = 0; i < 6; ++i){
+            test.removeFirst();
+        }
+
+    }
 }

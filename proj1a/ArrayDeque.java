@@ -109,7 +109,7 @@ public class ArrayDeque<T> {
         size--;
         T returnItem = data[convertToArrayIndex(-1, data.length)];
         data[convertToArrayIndex(-1, data.length)] = null;
-        if (size == data.length / 2) {
+        if (size == data.length / 2 && size >= 8) {
             downSize();
         }
         return returnItem;
