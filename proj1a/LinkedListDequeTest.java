@@ -89,9 +89,25 @@ public class LinkedListDequeTest {
 
 	}
 
+	public static void copyTest() {
+		System.out.println("Running copyTest.");
+
+		LinkedListDeque<String> lld1 = new LinkedListDeque<> ();
+		lld1.addLast("B");
+		lld1.addFirst("A");
+		lld1.addLast("C");
+		LinkedListDeque<String> lld2 = new LinkedListDeque<> (lld1);
+		lld2.printDeque();
+		System.out.println(lld1 == lld2);
+		lld1.addLast("D");
+		lld1.printDeque();
+		lld2.printDeque();
+	}
+
 	public static void main(String[] args) {
 		System.out.println("Running tests.\n");
 		addIsEmptySizeTest();
-		addRemoveTest();
+//		addRemoveTest();
+//		copyTest();
 	}
 } 
