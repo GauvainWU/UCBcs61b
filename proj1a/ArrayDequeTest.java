@@ -158,4 +158,17 @@ public class ArrayDequeTest {
         }
         assertEquals((int) 0, (int) test.get(17));
     }
+
+    @Test
+    public void addFirstRemoveLastTest(){
+        ArrayDeque<Integer> test = new ArrayDeque<>();
+        for (int i = 0; i < 9; ++i){
+            test.addFirst(i);
+        }
+        for (int i = 0; i < 1; ++i){
+            test.removeLast();
+        }
+        test.addFirst(9);
+        test.removeLast();
+    }
 }

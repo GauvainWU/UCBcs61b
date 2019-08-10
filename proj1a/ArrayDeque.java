@@ -63,7 +63,7 @@ public class ArrayDeque<T> {
             System.arraycopy(data, 0, newArray, 0, convertToArrayIndex(size, data.length));
             /* When nextFirst is positive, it needs to be increased/decreased. Otherwise it can just keep negative.
             * (positive means non circular , negative means circular)*/
-            if (nextFirst + 1 >= 0) {
+            if (nextFirst + 1 > 0) {
                 nextFirst += (newSize - data.length);
             }
             /* Case of non circular ([0 1 2 3 null null])*/
