@@ -122,6 +122,40 @@ public class ArrayDequeTest {
         for (int i = 0; i < 6; ++i){
             test.removeFirst();
         }
+    }
 
+    @Test
+    public void test8(){
+        ArrayDeque<Integer> test = new ArrayDeque<>();
+        test.addLast(0);
+        test.get(0);
+        test.addLast(2);
+        test.addLast(3);
+        test.addLast(4);
+        test.addLast(5);
+        test.addLast(6);
+        test.addLast(7);
+        test.addLast(8);
+        test.removeLast();
+        test.removeLast();
+        test.addLast(11);
+        test.addFirst(12);
+        test.addFirst(13);
+        test.addLast(14);
+        test.removeLast();
+        test.removeLast();
+        test.get(0);
+        test.addLast(18);
+        test.addLast(19);
+        assertEquals((int) 5, (int) test.get(6));
+    }
+
+    @Test
+    public void test9(){
+        ArrayDeque<Integer> test = new ArrayDeque<>();
+        for (int i = 0; i < 18; ++i){
+            test.addFirst(i);
+        }
+        assertEquals((int) 0, (int) test.get(17));
     }
 }

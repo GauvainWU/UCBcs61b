@@ -53,7 +53,7 @@ public class ArrayDeque<T> {
      */
     private void resize(int newSize) {
         T[] newArray = (T[]) new Object[newSize];
-        /* Situation of size increasing.(When the array is full and we add element)*/
+        /* Situation of circular list(last element return to the first [0 1 null null 1 2])*/
         if (convertToArrayIndex(0, data.length) + size > data.length) {
             /** Copy the elements starting from 0 (list index) to the end of the array*/
             int zeroToEndLength = data.length - convertToArrayIndex(0, data.length);
@@ -61,10 +61,12 @@ public class ArrayDeque<T> {
                     newArray, newArray.length - zeroToEndLength, zeroToEndLength);
             /**Copy the elements starting from 0 (array index) to end (list index)*/
             System.arraycopy(data, 0, newArray, 0, convertToArrayIndex(size, data.length));
+            /* When nextFirst is positive, it needs to be increased/decreased. Otherwise it can just keep negative.
+            * (positive means non circular , negative means circular)*/
             if (nextFirst + 1 >= 0) {
-                nextFirst += (newSize - size);
+                nextFirst += (newSize - data.length);
             }
-            /* Case of size decreasing. (last element does not circulate back to the front)*/
+            /* Case of non circular ([0 1 2 3 null null])*/
         } else {
             System.arraycopy(data, convertToArrayIndex(0, data.length), newArray, 0, size);
             nextFirst = -1;
