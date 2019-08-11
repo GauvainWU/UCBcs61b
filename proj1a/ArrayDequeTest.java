@@ -162,10 +162,8 @@ public class ArrayDequeTest {
     @Test
     public void addFirstRemoveLastTest(){
         ArrayDeque<Integer> test = new ArrayDeque<>();
-        for (int i = 0; i < 9; ++i){
+        for (int i = 0; i < 20; ++i){
             test.addFirst(i);
-        }
-        for (int i = 0; i < 1; ++i){
             test.removeLast();
         }
         test.addFirst(9);

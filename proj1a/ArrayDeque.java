@@ -36,7 +36,11 @@ public class ArrayDeque<T> {
      * @param length length of the data array
       */
     private int convertToArrayIndex(int i, int length) {
-        return (nextFirst + 1 + i + length) % length;
+        int initPos = nextFirst + 1 + i;
+        while(initPos < 0){
+            initPos += length;
+        }
+        return initPos % length;
     }
 
     private boolean isFull() {
