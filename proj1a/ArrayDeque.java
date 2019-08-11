@@ -90,6 +90,10 @@ public class ArrayDeque<T> {
         if(isFull()) {
             upSize();
         }
+        if (convertToArrayIndex(-1, data.length) < 0){
+            System.out.println(nextFirst);
+            this.printDeque();
+        }
         data[convertToArrayIndex(-1, data.length)] = x;
         nextFirst--;
         size++;
