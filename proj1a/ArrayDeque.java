@@ -36,11 +36,7 @@ public class ArrayDeque<T> {
      * @param length length of the data array
       */
     private int convertToArrayIndex(int i, int length) {
-        int initPos = nextFirst + 1 + i;
-        while(initPos < 0){
-            initPos += length;
-        }
-        return initPos % length;
+        return (nextFirst + 1 + i + length) % length;
     }
 
     private boolean isFull() {
@@ -101,6 +97,7 @@ public class ArrayDeque<T> {
         data[convertToArrayIndex(-1, data.length)] = x;
         nextFirst--;
         size++;
+        System.out.println("addFirst(" + x + ')');
     }
 
     public void addLast(T x) {
@@ -135,10 +132,12 @@ public class ArrayDeque<T> {
         if (size == data.length / 2 && size >= 8) {
             downSize();
         }
+        System.out.println("removeLast()");
         return returnItem;
     }
 
     public T get(int i) {
+        System.out.println("get(" + i +')');
         return data[convertToArrayIndex(i, data.length)];
     }
 
