@@ -33,10 +33,16 @@ public class ArrayDeque<T> {
     /**
      *   Function that transfers list index (starting from nextFirst + 1) to the index in the data array.
      * @param i index in list.
-     * @param length length of the data array
       */
-    private int convertToArrayIndex(int i, int length) {
-        return (nextFirst + 1 + i + length) % length;
+    private int convertToArrayIndex(int i) {
+        if (Math.abs(nextFirst) > data.length){
+            nextFirst += data.length;
+        }
+        int initPos = nextFirst + 1 + i;
+//        while (initPos < 0){
+//            initPos += length;
+//        }
+        return (initPos + data.length) % data.length;
     }
 
     private boolean isFull() {
@@ -54,13 +60,13 @@ public class ArrayDeque<T> {
     private void resize(int newSize) {
         T[] newArray = (T[]) new Object[newSize];
         /* Situation of circular list(last element return to the first [0 1 null null 1 2])*/
-        if (convertToArrayIndex(0, data.length) + size > data.length) {
+        if (convertToArrayIndex(0) + size > data.length) {
             /** Copy the elements starting from 0 (list index) to the end of the array*/
-            int zeroToEndLength = data.length - convertToArrayIndex(0, data.length);
-            System.arraycopy(data, convertToArrayIndex(0, data.length),
+            int zeroToEndLength = data.length - convertToArrayIndex(0);
+            System.arraycopy(data, convertToArrayIndex(0),
                     newArray, newArray.length - zeroToEndLength, zeroToEndLength);
             /**Copy the elements starting from 0 (array index) to end (list index)*/
-            System.arraycopy(data, 0, newArray, 0, convertToArrayIndex(size, data.length));
+            System.arraycopy(data, 0, newArray, 0, convertToArrayIndex(size));
             /* When nextFirst is positive, it needs to be increased/decreased. Otherwise it can just keep negative.
             * (positive means non circular , negative means circular)*/
             if (nextFirst + 1 > 0) {
@@ -68,7 +74,7 @@ public class ArrayDeque<T> {
             }
             /* Case of non circular ([0 1 2 3 null null])*/
         } else {
-            System.arraycopy(data, convertToArrayIndex(0, data.length), newArray, 0, size);
+            System.arraycopy(data, convertToArrayIndex(0), newArray, 0, size);
             nextFirst = -1;
         }
         data = newArray;
@@ -90,21 +96,20 @@ public class ArrayDeque<T> {
         if(isFull()) {
             upSize();
         }
-        if (convertToArrayIndex(-1, data.length) < 0){
+        if (convertToArrayIndex(-1) < 0){
             System.out.println(nextFirst);
             this.printDeque();
         }
-        data[convertToArrayIndex(-1, data.length)] = x;
+        data[convertToArrayIndex(-1)] = x;
         nextFirst--;
         size++;
-        System.out.println("addFirst(" + x + ')');
     }
 
     public void addLast(T x) {
         if(isFull()) {
             upSize();
         }
-        data[convertToArrayIndex(size, data.length)] = x;
+        data[convertToArrayIndex(size)] = x;
         size++;
     }
 
@@ -114,8 +119,8 @@ public class ArrayDeque<T> {
         }
         nextFirst++;
         size--;
-        T returnItem = data[convertToArrayIndex(-1, data.length)];
-        data[convertToArrayIndex(-1, data.length)] = null;
+        T returnItem = data[convertToArrayIndex(-1)];
+        data[convertToArrayIndex(-1)] = null;
         if (size == data.length / 2 && size >= 8) {
             downSize();
         }
@@ -127,18 +132,16 @@ public class ArrayDeque<T> {
             return null;
         }
         size--;
-        T returnItem = data[convertToArrayIndex(size, data.length)];
-        data[convertToArrayIndex(size, data.length)] = null;
+        T returnItem = data[convertToArrayIndex(size)];
+        data[convertToArrayIndex(size)] = null;
         if (size == data.length / 2 && size >= 8) {
             downSize();
         }
-        System.out.println("removeLast()");
         return returnItem;
     }
 
     public T get(int i) {
-        System.out.println("get(" + i +')');
-        return data[convertToArrayIndex(i, data.length)];
+        return data[convertToArrayIndex(i)];
     }
 
     public int size() {
@@ -147,7 +150,7 @@ public class ArrayDeque<T> {
 
     public void printDeque() {
         for (int i = 0; i < size; ++i) {
-            System.out.print(data[convertToArrayIndex(i, data.length)]);
+            System.out.print(data[convertToArrayIndex(i)]);
             System.out.print(' ');
         }
         System.out.println();
