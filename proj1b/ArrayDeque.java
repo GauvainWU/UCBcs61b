@@ -15,7 +15,7 @@ public class ArrayDeque<T> implements Deque<T>{
     public ArrayDeque() {
         data = (T[]) new Object[8];
         size = 0;
-        nextFirst = 2;
+        nextFirst = -1;
     }
 
     /**
