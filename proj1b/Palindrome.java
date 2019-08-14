@@ -15,12 +15,16 @@ public class Palindrome {
     }
 
     /**
-     * Method used to determine if a given word is palindrome by comparing itself and its reversed version
+     * Method used to determine if a given word is palindrome
+     * by comparing itself and its reversed version
      *
      * @param word the word to be checked
      * @return True if word is palindrome, false otherwise
      */
     public boolean isPalindrome(String word) {
+        if (word == null) {
+            return false;
+        }
         if (word.length() == 0 || word.length() == 1) {
             return true;
         }
@@ -33,6 +37,9 @@ public class Palindrome {
     }
 
     public boolean isPalindrome(String word, CharacterComparator cc) {
+        if (word == null) {
+            return false;
+        }
         if (word.length() == 0 || word.length() == 1) {
             return true;
         }
@@ -57,13 +64,13 @@ public class Palindrome {
     private boolean isEqual(Deque<Character> a, Deque<Character> b, CharacterComparator cc) {
         if (a.size() % 2 == 1){
             for (int i = 0; i < a.size() && i != (a.size() - 1) / 2; ++i) {
-                if (!cc.equalChars(a.removeFirst(),b.removeFirst())) {
+                if (!cc.equalChars(a.removeFirst(), b.removeFirst())) {
                     return false;
                 }
             }
-        }else {
+        } else {
             for (int i = 0; i < a.size(); ++i) {
-                if (!cc.equalChars(a.removeFirst(),b.removeFirst())) {
+                if (!cc.equalChars(a.removeFirst(), b.removeFirst())) {
                     return false;
                 }
             }

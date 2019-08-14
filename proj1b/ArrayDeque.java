@@ -3,7 +3,7 @@
  * @author jiahua wu
  */
 
-public class ArrayDeque<T> implements Deque<T>{
+public class ArrayDeque<T> implements Deque<T> {
     private T[] data;
     private int size;
     private int nextFirst;
@@ -31,7 +31,8 @@ public class ArrayDeque<T> implements Deque<T>{
 //    }
 
     /**
-     *   Function that transfers list index (starting from nextFirst + 1) to the index in the data array.
+     *   Function that transfers list index (starting from nextFirst + 1)
+     *   to the index in the data array.
      * @param i index in list.
       */
     private int convertToArrayIndex(int i) {
@@ -82,15 +83,16 @@ public class ArrayDeque<T> implements Deque<T>{
     }
 
     /**
-     *     List index always varies from 0 to size - 1. Thus addFirst adds element at -1 and addLast adds element at
-     *     size.
+     *     List index always varies from 0 to size - 1.
+     *     Thus addFirst adds element at -1 and
+     *     addLast adds element at size.
       */
     @Override
     public void addFirst(T x) {
-        if(isFull()) {
+        if (isFull()) {
             upSize();
         }
-        if (convertToArrayIndex(-1) < 0){
+        if (convertToArrayIndex(-1) < 0) {
             System.out.println(nextFirst);
             this.printDeque();
         }
@@ -101,7 +103,7 @@ public class ArrayDeque<T> implements Deque<T>{
 
     @Override
     public void addLast(T x) {
-        if(isFull()) {
+        if (isFull()) {
             upSize();
         }
         data[convertToArrayIndex(size)] = x;
@@ -110,7 +112,7 @@ public class ArrayDeque<T> implements Deque<T>{
 
     @Override
     public T removeFirst() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
         nextFirst++;
@@ -125,7 +127,7 @@ public class ArrayDeque<T> implements Deque<T>{
 
     @Override
     public T removeLast() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
         size--;

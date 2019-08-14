@@ -8,7 +8,7 @@
  * Generic class for linked list
  * @param <T> type of the content of the list.
  */
-public class LinkedListDeque<T> implements Deque<T>{
+public class LinkedListDeque<T> implements Deque<T> {
     private int size;
     private LinkNode last;
     private LinkNode sentinel;
@@ -46,7 +46,7 @@ public class LinkedListDeque<T> implements Deque<T>{
     public void addFirst(T x) {
         sentinel.next = new LinkNode(x, sentinel.next, sentinel);
         sentinel.next.next.prev = sentinel.next;
-        if(isEmpty()) {
+        if (isEmpty()) {
             last = sentinel.next;
         }
         size += 1;
@@ -67,7 +67,7 @@ public class LinkedListDeque<T> implements Deque<T>{
     @Override
     public void printDeque() {
         LinkNode p = sentinel.next;
-        while(p.next != sentinel) {
+        while (p.next != sentinel) {
             System.out.print(p.item);
             System.out.print(' ');
             p = p.next;
@@ -83,14 +83,14 @@ public class LinkedListDeque<T> implements Deque<T>{
      */
     @Override
     public T removeFirst() {
-        if (isEmpty()){
+        if (isEmpty()) {
             return null;
         }
         LinkNode first = sentinel.next;
         T element = first.item;
         sentinel.next = first.next;
         first.next.prev = sentinel;
-        if(size == 1) {
+        if (size == 1) {
             last = sentinel;
         }
         size--;
@@ -99,7 +99,7 @@ public class LinkedListDeque<T> implements Deque<T>{
 
     @Override
     public T removeLast() {
-        if (isEmpty()){
+        if (isEmpty()) {
             return null;
         }
         T element =  last.item;
@@ -112,7 +112,7 @@ public class LinkedListDeque<T> implements Deque<T>{
     @Override
     public T get(int i) {
         LinkNode p = sentinel;
-        while(p.next != sentinel && i >= 0) {
+        while (p.next != sentinel && i >= 0) {
             p = p.next;
             i--;
         }
@@ -124,9 +124,9 @@ public class LinkedListDeque<T> implements Deque<T>{
     }
 
     private T getRecursiveHelper(int i, LinkNode p) {
-        if(p.next == sentinel && i >= 0){
+        if (p.next == sentinel && i >= 0) {
             return null;
-        } else if(i < 0) {
+        } else if (i < 0) {
             return p.item;
         } else {
             return getRecursiveHelper(i - 1, p.next);
@@ -137,9 +137,9 @@ public class LinkedListDeque<T> implements Deque<T>{
     }
 
     private class LinkNode {
-        public T item;
-        public LinkNode next;
-        public LinkNode prev;
+        T item;
+        LinkNode next;
+        LinkNode prev;
 
         public LinkNode() {
             item = null;

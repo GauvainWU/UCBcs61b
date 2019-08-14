@@ -25,8 +25,8 @@ public class TestPalindrome {
     public void testIsPalindrome() {
         CharacterComparator cc = new OffByOne();
         OffByN obn = new OffByN(0);
-        OffByN obn2 = new OffByN(5 );
-        assertTrue(palindrome.isPalindrome("binding",obn2));
+        OffByN obn2 = new OffByN(5);
+        assertTrue(palindrome.isPalindrome("binding", obn2));
         assertTrue(palindrome.isPalindrome("detrude", cc));
         assertTrue(palindrome.isPalindrome("acdb", cc));
         assertTrue(palindrome.isPalindrome("asa", obn));
@@ -34,5 +34,7 @@ public class TestPalindrome {
         assertFalse(palindrome.isPalindrome("asoeijf"));
         assertTrue(palindrome.isPalindrome("asa"));
         assertTrue(palindrome.isPalindrome("dccd"));
+        palindrome.isPalindrome(null);
+        palindrome.isPalindrome(null, obn2);
     }
 }
