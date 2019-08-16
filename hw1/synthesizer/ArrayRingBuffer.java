@@ -101,7 +101,7 @@ public class ArrayRingBuffer<T> implements BoundedQueue<T> {
         }
 
         public boolean hasNext() {
-            return index <= last;
+            return index < last;
         }
 
         public T next() {
