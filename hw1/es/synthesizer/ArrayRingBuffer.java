@@ -1,5 +1,4 @@
-package es.datastructur.synthesizer;
-import javax.swing.text.html.HTMLDocument;
+package es.synthesizer;
 import java.util.Iterator;
 
 //TODO: Make sure to that this class and all of its methods are public

@@ -1,4 +1,4 @@
-package es.datastructur.synthesizer;
+package es.synthesizer;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
