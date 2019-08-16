@@ -1,4 +1,4 @@
-package es.synthesizer;
+package synthesizer;
 
 //Note: This file will not compile until you complete task 1 (BoundedQueue).
 public class GuitarString {

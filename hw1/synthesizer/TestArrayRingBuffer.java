@@ -1,4 +1,4 @@
-package es.synthesizer;
+package synthesizer;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
