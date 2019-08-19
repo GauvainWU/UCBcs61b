@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class UnionFind {
     private int[] data;
     private int size;
@@ -68,16 +70,16 @@ public class UnionFind {
     /* Returns the root of the set V belongs to. Path-compression is employed
        allowing for fast search-time. */
     public int find(int vertex) {
+        ArrayList<Integer> nodeEncountered = new ArrayList<>();
         if (data[vertex] == vertex){
             return vertex;
         } else {
-            int prevVertex = vertex;
             while (data[vertex] > 0) {
+                nodeEncountered.add(vertex);
                 vertex = data[vertex];
-                if (data[vertex] > 0) {
-                    data[prevVertex] = data[vertex];
-                    prevVertex = vertex;
-                }
+            }
+            for (int v: nodeEncountered) {
+                data[v] = vertex;
             }
             return vertex;
         }
