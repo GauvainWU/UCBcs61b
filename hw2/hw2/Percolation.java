@@ -14,21 +14,27 @@ public class Percolation {
      * @param N Size of the grid
      */
     public Percolation(int N) {
+        if (N <= 0) {
+            throw new IllegalArgumentException("Size of the grid should be positive");
+        }
         numOpenSites = 0;
         size = N;
         grid = new Site[N * N];
         map = new WeightedQuickUnionUF(N * N);
         percolates = false;
 
-        for (int i = 0; i < N; ++i) {
-            grid[i] = new Site(true, false, false);
-        }
-        for (int i = N; i < N * (N - 1); ++i) {
+        for (int i = 0; i < N * N; ++i) {
             grid[i] = new Site(false, false, false);
         }
-        for (int i = N * (N - 1); i < N * N; ++i) {
-            grid[i] = new Site(false, false, true);
+
+        for (int i = 0; i < N; ++i) {
+            grid[i].setFull();
         }
+
+        for (int i = N * (N - 1); i < N * N; ++i) {
+            grid[i].setBottomConnected();
+        }
+
     }
 
     private void checkIndex(int index) {
@@ -64,6 +70,10 @@ public class Percolation {
      * @param col column of the site
      */
     public void open(int row, int col) {
+        if (isOpen(row, col)) {
+            return;
+        }
+
         int index = arrayIndex(row, col);
         checkIndex(row);
         checkIndex(col);
@@ -79,12 +89,12 @@ public class Percolation {
                     grid[map.find(index)].setBottomConnected();
                 }
                 if (isFull(row, col)) {
-                    grid[map.find(arrayIndex(nrow,ncol))].setFull();
+                    grid[map.find(arrayIndex(nrow, ncol))].setFull();
                 }
                 if (isBottomConnected(row, col)) {
-                    grid[map.find(arrayIndex(nrow,ncol))].setBottomConnected();
+                    grid[map.find(arrayIndex(nrow, ncol))].setBottomConnected();
                 }
-                map.union(arrayIndex(nrow,ncol),index);
+                map.union(arrayIndex(nrow, ncol), index);
             }
         }
         numOpenSites++;
@@ -94,7 +104,7 @@ public class Percolation {
     }
 
     public boolean isOpen(int row, int col) {
-        return grid[arrayIndex(row,col)].isOpen();
+        return grid[arrayIndex(row, col)].isOpen();
     }
 
     /**
@@ -128,5 +138,5 @@ public class Percolation {
     public boolean percolates() {
         return percolates;
     }
-    public static void main(String[] args) {}   // use for unit testing (not required, but keep this here for the autograder)
+    public static void main(String[] args) { }   // use for unit testing (not required, but keep this here for the autograder)
 }
