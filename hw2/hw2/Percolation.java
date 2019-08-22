@@ -138,5 +138,6 @@ public class Percolation {
     public boolean percolates() {
         return percolates;
     }
+
     public static void main(String[] args) { }   // use for unit testing (not required, but keep this here for the autograder)
 }
