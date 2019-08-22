@@ -28,12 +28,13 @@ public class Percolation {
         }
 
         for (int i = 0; i < N; ++i) {
-            grid[i].setFull();
+            grid[i].setOnTop();
         }
 
         for (int i = N * (N - 1); i < N * N; ++i) {
-            grid[i].setBottomConnected();
+            grid[i].setOnBottom();
         }
+
     }
 
     private void checkIndex(int index) {

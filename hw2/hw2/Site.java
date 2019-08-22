@@ -44,4 +44,12 @@ public class Site {
     public void setBottomConnected() {
         bottomConnected = true;
     }
+
+    public void setOnTop() {
+        onTop = true;
+    }
+
+    public void setOnBottom() {
+        onBottom = true;
+    }
 }
