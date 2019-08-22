@@ -1,5 +1,6 @@
 package hw2;
-import edu.princeton.cs.introcs.*;
+import edu.princeton.cs.introcs.StdStats;
+import edu.princeton.cs.introcs.StdRandom;
 
 public class PercolationStats {
     private double[] xdata;
@@ -11,16 +12,16 @@ public class PercolationStats {
      * @param pf
      */
     public PercolationStats(int N, int T, PercolationFactory pf) {
-        xdata = new double[T];
         if (T <= 0 || N <= 0) {
             throw new IllegalArgumentException();
         }
+        xdata = new double[T];
         for (int i = 0; i < T; i++) {
             Percolation p = pf.make(N);
             while (!p.percolates()) {
                 p.open(StdRandom.uniform(N), StdRandom.uniform(N));
             }
-            xdata[i] = p.numberOfOpenSites() / N;
+            xdata[i] = p.numberOfOpenSites() / (N * N);
         }
     }
 
