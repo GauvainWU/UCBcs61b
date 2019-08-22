@@ -18,7 +18,7 @@ public class PercolationStats {
         for (int i = 0; i < T; i++) {
             Percolation p = pf.make(N);
             while (!p.percolates()) {
-                p.open(StdRandom.uniform(N),StdRandom.uniform(N));
+                p.open(StdRandom.uniform(N), StdRandom.uniform(N));
             }
             xdata[i] = p.numberOfOpenSites() / N;
         }
