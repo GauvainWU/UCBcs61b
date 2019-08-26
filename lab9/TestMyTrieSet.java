@@ -7,6 +7,17 @@ import java.util.List;
  */
 public class TestMyTrieSet {
 
+    @Test
+    public void testAdd() {
+        MyTrieSet t = new MyTrieSet();
+        t.add("abcd");
+        t.add("abc");
+        t.add("bcd");
+        assertTrue(t.contains("abcd"));
+        assertTrue(t.contains("bcd"));
+        assertFalse(t.contains("bc"));
+    }
+
     // assumes add/contains work
     @Test
     public void sanityClearTest() {
