@@ -105,6 +105,20 @@ public class ULLMap<K, V>  implements Map61B<K, V> {
             return next.get(k);
         }
 
+        /**
+         * Returns the Entry in the linked list of key-value pairs whose next contains the key wanted
+         */
+
+        Entry getNext(K k) {
+            if (next == null) {
+                return null;
+            }
+            if (k != null && k.equals(this.next.key)) {
+                return this;
+            }
+            return next.getNext(k);
+        }
+
         /** Stores the key of the key-value pair of this node in the list. */
         K key;
         /** Stores the value of the key-value pair of this node in the list. */
@@ -145,7 +159,24 @@ public class ULLMap<K, V>  implements Map61B<K, V> {
 
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        if (size == 1) {
+            V returnValue = null;
+            if (list.key.equals(key)) {
+                returnValue = list.val;
+                clear();
+            }
+            return returnValue;
+        }
+
+        Entry prev = list.getNext(key);
+        if (prev == null) {
+            return null;
+        } else {
+            V returnValue = prev.next.val;
+            prev.next = prev.next.next;
+            this.size--;
+            return returnValue;
+        }
     }
 
     @Override
