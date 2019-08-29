@@ -2,7 +2,9 @@ package bearmaps;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,5 +21,27 @@ public class KDTreeTest {
         Point ret = kdt.nearest(0.5, 4.4); // returns p2
         System.out.println(ret.getX());
         System.out.println(ret.getY());
+    }
+
+    @Test
+    public void multipleRandomTests() {
+        for (int i = 0; i < 100; i++) {
+            randomTest(1000);
+        }
+    }
+
+    private void randomTest(int num) {
+        Random rd = new Random();
+        List<Point> ls = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            double p1x = rd.nextDouble();
+            double p1y = rd.nextDouble();
+            ls.add(new Point(p1x,p1y));
+        }
+        KDTree kdt = new KDTree(ls);
+        NaivePointSet nvp = new NaivePointSet(ls);
+        double p1x = rd.nextDouble();
+        double p1y = rd.nextDouble();
+        assertEquals(nvp.nearest(p1x, p1y), kdt.nearest(p1x, p1y));
     }
 }
