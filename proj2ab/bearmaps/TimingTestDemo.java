@@ -11,19 +11,17 @@ public class TimingTestDemo {
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
         int sum = 0;
-        for (int i = 0; i < 100000; i += 1) {
-            for (int j = 0; j < 10000; j += 1) {
-                sum = sum + i + j;
-            }
+        ArrayHeapMinPQ<Integer> test = new ArrayHeapMinPQ<>();
+        for (int i = 100000; i > 0; i --) {
+            test.add(i,i);
         }
         long end = System.currentTimeMillis();
         System.out.println("Total time elapsed: " + (end - start)/1000.0 +  " seconds.");
 
         Stopwatch sw = new Stopwatch();
-        for (int i = 0; i < 100000; i += 1) {
-            for (int j = 0; j < 10000; j += 1) {
-                sum = sum + i + j;
-            }
+        NaiveMinPQ<Integer> test2 = new NaiveMinPQ<>();
+        for (int i = 100000; i > 0; i--) {
+            test2.add(i,i);
         }
         System.out.println("Total time elapsed: " + sw.elapsedTime() +  " seconds.");
     }
