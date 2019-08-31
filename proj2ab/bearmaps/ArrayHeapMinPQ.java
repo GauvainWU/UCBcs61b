@@ -46,17 +46,15 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
             if (rightChild(current) <= size && nodes[current].compareTo(nodes[rightChild(current)]) > 0) {
                 swap(current, rightChild(current));
                 sink(rightChild(current));
-            } else {
-                sink(leftChild(current));
             }
+            sink(leftChild(current));
         } else if (rightChild(current) <= size && nodes[current].compareTo(nodes[rightChild(current)]) > 0) {
             swap(current,rightChild(current));
             if (nodes[current].compareTo(nodes[leftChild(current)]) > 0) {
                 swap(current, leftChild(current));
                 sink(leftChild(current));
-            } else {
-                sink(rightChild(current));
             }
+            sink(rightChild(current));
         }
     }
 
@@ -116,6 +114,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     public int size() {
         return size;
     }
+
     /* Changes the priority of the given item. Throws NoSuchElementException if the item
      * doesn't exist. */
     public void changePriority(T item, double priority) {
@@ -123,8 +122,23 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
             throw new NoSuchElementException();
         }
         int position = keyPosMap.get(item);
+        double oldPriority = nodes[position].getPriority();
         nodes[position].setPriority(priority);
-        adjust(position);
+        if (priority > oldPriority) {
+            sink(position);
+        } else {
+            adjust(position);
+        }
+    }
+
+    public void printAllPriority() {
+        for (PriorityNode p : nodes) {
+            if (p == null) {
+                continue;
+            }
+            System.out.print(String.format("%3f", p.priority) + " ");
+        }
+        System.out.println();
     }
 
     private class PriorityNode implements Comparable<PriorityNode> {

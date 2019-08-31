@@ -2,6 +2,10 @@ package bearmaps;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import static org.junit.Assert.*;
 
 public class ArrayHeapMinPQTest {
@@ -48,5 +52,36 @@ public class ArrayHeapMinPQTest {
         test.removeSmallest();
         test.removeSmallest();
         assertEquals("b",test.removeSmallest());
+    }
+
+    @Test
+    public void multipleRandomTests() {
+        for (int i = 0; i < 1000; i++) {
+            randomTest(100);
+        }
+    }
+
+    private void randomTest(int num) {
+        Random rd = new Random();
+        ArrayHeapMinPQ<Integer> test = new ArrayHeapMinPQ<>();
+        NaiveMinPQ<Integer> naive = new NaiveMinPQ<>();
+        for (int i = 0; i < num; i++) {
+            int item = i;
+            double priority = rd.nextDouble();
+            test.add(item,priority);
+            naive.add(item, priority);
+            assertEquals(test.getSmallest(), naive.getSmallest());
+        }
+
+        for (int i = 1; i < num; ++i) {
+            double newPriority = rd.nextDouble();
+            test.changePriority(i, newPriority);
+            naive.changePriority(i, newPriority);
+            assertEquals(test.getSmallest(), naive.getSmallest());
+        }
+//        test.printAllPriority();
+        for (int i = 0; i < num; ++i) {
+            assertEquals(test.removeSmallest(), naive.removeSmallest());
+        }
     }
 }
