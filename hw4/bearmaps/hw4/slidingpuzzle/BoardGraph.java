@@ -6,7 +6,7 @@ import bearmaps.hw4.WeightedEdge;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Random;
 /**
  * An implementation of the Board class. The code as distributed
  * provides no useful heuristic. Implement the Hamming distance or
