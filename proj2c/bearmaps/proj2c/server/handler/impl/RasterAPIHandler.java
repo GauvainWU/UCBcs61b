@@ -2,6 +2,7 @@ package bearmaps.proj2c.server.handler.impl;
 
 import bearmaps.proj2c.AugmentedStreetMapGraph;
 import bearmaps.proj2c.server.handler.APIRouteHandler;
+import edu.princeton.cs.algs4.In;
 import spark.Request;
 import spark.Response;
 import bearmaps.proj2c.utils.Constants;
@@ -17,8 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static bearmaps.proj2c.utils.Constants.SEMANTIC_STREET_GRAPH;
-import static bearmaps.proj2c.utils.Constants.ROUTE_LIST;
+import static bearmaps.proj2c.utils.Constants.*;
 
 /**
  * Handles requests from the web browser for map images. These images
@@ -84,11 +84,70 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
      */
     @Override
     public Map<String, Object> processRequest(Map<String, Double> requestParams, Response response) {
-        //System.out.println("yo, wanna know the parameters given by the web browser? They are:");
-        //System.out.println(requestParams);
+//        System.out.println("yo, wanna know the parameters given by the web browser? They are:");
+//        System.out.println(requestParams);
+        Map<String, Object> results;
+        double lonDPPGoal = (requestParams.get("lrlon") - requestParams.get("ullon")) / requestParams.get("w");
+        int zoomLevel = depthToUse(lonDPPGoal, 7);
+        results = getResults(requestParams.get("ullat"), requestParams.get("ullon"),
+                               requestParams.get("lrlat"), requestParams.get("lrlon"), zoomLevel);
+        return results;
+    }
+
+    private int depthToUse(double lonDPPGoal, int maxDepth) {
+        for (int i = 0; i <= maxDepth; ++i) {
+            double LonDPP = (ROOT_LRLON - ROOT_ULLON) / (TILE_SIZE * Math.pow(2, i));
+            if (LonDPP < lonDPPGoal) {
+                return i;
+            }
+        }
+        return maxDepth;
+    }
+
+    private boolean isNotValid(double ullat, double ullon, double lrlat, double lrlon) {
+        return (ullat < Constants.ROOT_LRLAT) || (lrlat > Constants.ROOT_ULLAT)
+                || (lrlon < ROOT_ULLON) || (ullon > ROOT_LRLON);
+    }
+
+    private Map<String, Object> getResults(double ullat, double ullon, double lrlat, double lrlon, int depth) {
         Map<String, Object> results = new HashMap<>();
-        System.out.println("Since you haven't implemented RasterAPIHandler.processRequest, nothing is displayed in "
-                + "your browser.");
+        if (isNotValid(ullat, ullon, lrlat, lrlon)) {
+            return queryFail();
+        }
+
+        ullat = Math.min(ullat, ROOT_ULLAT);
+        lrlat = Math.max(lrlat, ROOT_LRLAT);
+        ullon = Math.max(ullon, ROOT_ULLON);
+        lrlon = Math.min(lrlon, ROOT_LRLON);
+        double lonPerTile = (ROOT_LRLON - ROOT_ULLON) / Math.pow(2, depth);
+        double latPerTile = (ROOT_ULLAT - ROOT_LRLAT) / Math.pow(2, depth);
+        int leftMostX = (int) ((ullon - ROOT_ULLON) / lonPerTile);
+        int rightMostX = (int) ((lrlon - ROOT_ULLON) / lonPerTile);
+        int upMostY = (int) ((ROOT_ULLAT - ullat) / latPerTile);
+        int downMostY = (int) ((ROOT_ULLAT - lrlat) / latPerTile);
+        int numLonTile = rightMostX - leftMostX + 1;
+        int numLatTile = downMostY - upMostY + 1;
+
+        String[][] renderGrid = new String[numLatTile][numLonTile];
+        for (int i = 0; i < numLatTile; ++i) {
+            for (int j = 0; j < numLonTile; ++j) {
+                int x = leftMostX + j;
+                int y = upMostY + i;
+                renderGrid[i][j] = "d" + depth + "_x" + x + "_y" + y + ".png";
+            }
+        }
+        double raster_ul_lon = ROOT_ULLON + leftMostX * lonPerTile;
+        double raster_ul_lat = ROOT_ULLAT - upMostY * latPerTile;
+        double raster_lr_lon = ROOT_ULLON + (rightMostX + 1) * lonPerTile;
+        double raster_lr_lat = ROOT_ULLAT - (downMostY + 1) * latPerTile;
+
+        results.put("render_grid", renderGrid);
+        results.put("raster_ul_lon", raster_ul_lon);
+        results.put("raster_ul_lat", raster_ul_lat);
+        results.put("raster_lr_lon", raster_lr_lon);
+        results.put("raster_lr_lat", raster_lr_lat);
+        results.put("depth", depth);
+        results.put("query_success", true);
         return results;
     }
 
