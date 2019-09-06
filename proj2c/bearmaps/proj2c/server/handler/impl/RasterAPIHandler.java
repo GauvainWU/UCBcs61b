@@ -115,16 +115,12 @@ public class RasterAPIHandler extends APIRouteHandler<Map<String, Double>, Map<S
             return queryFail();
         }
 
-        ullat = Math.min(ullat, ROOT_ULLAT);
-        lrlat = Math.max(lrlat, ROOT_LRLAT);
-        ullon = Math.max(ullon, ROOT_ULLON);
-        lrlon = Math.min(lrlon, ROOT_LRLON);
         double lonPerTile = (ROOT_LRLON - ROOT_ULLON) / Math.pow(2, depth);
         double latPerTile = (ROOT_ULLAT - ROOT_LRLAT) / Math.pow(2, depth);
-        int leftMostX = (int) ((ullon - ROOT_ULLON) / lonPerTile);
-        int rightMostX = (int) ((lrlon - ROOT_ULLON) / lonPerTile);
-        int upMostY = (int) ((ROOT_ULLAT - ullat) / latPerTile);
-        int downMostY = (int) ((ROOT_ULLAT - lrlat) / latPerTile);
+        int leftMostX = Math.max((int) ((ullon - ROOT_ULLON) / lonPerTile), 0);
+        int rightMostX = Math.min((int) ((lrlon - ROOT_ULLON) / lonPerTile), (int) Math.pow(2, depth) - 1);
+        int upMostY = Math.max((int) ((ROOT_ULLAT - ullat) / latPerTile), 0);
+        int downMostY = Math.min((int) ((ROOT_ULLAT - lrlat) / latPerTile), (int) Math.pow(2, depth) - 1);
         int numLonTile = rightMostX - leftMostX + 1;
         int numLatTile = downMostY - upMostY + 1;
 
